@@ -5,40 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавить историю</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            background: #f4f4f4; 
-            padding: 50px;
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            font-family: "Segoe UI", sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
         }
-        img { max-width: 100%; border-radius: 10px; margin-bottom: 20px; }
-        button { 
-            font-size: 18px; 
-            padding: 15px 30px; 
-            border: none; 
-            border-radius: 10px; 
-            background: #0088cc; 
-            color: white; 
-            cursor: pointer; 
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        button:hover { background: #005f99; }
+        .btn {
+            background: white;
+            color: #2575fc;
+            font-size: 18px;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #e0e0e0;
+        }
+        img {
+            max-width: 300px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
-    <h1>📸 Получи бонус за историю!</h1>
-    <p>Нажми кнопку после того, как выложил историю в Telegram</p>
-
-    <!-- Пример картинки из твоего первого HTML -->
+    <h1>📸 Добавь свою историю!</h1>
     <img src="https://i.imgur.com/9J6x0dT.jpg" alt="История">
-
-    <button id="postStory">Выложить историю</button>
+    <button class="btn" id="postStory">Выложить историю</button>
 
     <script>
         const btn = document.getElementById("postStory");
         btn.addEventListener("click", () => {
             if (window.Telegram?.WebApp) {
-                // отправляем событие в Telebot
-                Telegram.WebApp.sendData('story_done'); 
+                Telegram.WebApp.sendData('story_done');
                 alert("✅ История засчитана! Следующий бонус через 14 дней.");
             } else {
                 alert("❌ Откройте этот WebApp через Telegram!");
