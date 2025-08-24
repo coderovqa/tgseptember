@@ -18,9 +18,10 @@
 
     <script>
         const btn = document.getElementById("postStory");
+
         btn.addEventListener("click", () => {
             if (window.Telegram?.WebApp) {
-                Telegram.WebApp.sendData('story_done'); // данные отправляются в Telebot
+                Telegram.WebApp.sendData('story_done'); // отправка данных в Telebot
                 alert("✅ История засчитана! Бонус будет выдан в боте.");
             } else {
                 alert("❌ Откройте WebApp через Telegram!");
