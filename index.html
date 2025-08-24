@@ -3,55 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проверка истории</title>
+    <title>Telegram Story WebApp</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-        #daysInfo {
-            font-size: 20px;
-            margin: 15px 0;
-        }
+        body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
+        button { font-size: 18px; padding: 15px 30px; border: none; border-radius: 10px; background: #0088cc; color: white; cursor: pointer; }
+        button:hover { background: #005f99; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Проверка истории</h2>
-        <p id="daysInfo">Загрузка данных...</p>
-        <button id="checkBtn">Обновить</button>
-    </div>
+    <h1>🎉 Добавь свою историю!</h1>
+    <p>Нажми кнопку ниже после того, как выложишь историю в Telegram</p>
+    
+    <button id="postStory">Выложить историю</button>
 
     <script>
-        const daysInfo = document.getElementById('daysInfo');
-        const checkBtn = document.getElementById('checkBtn');
-
-        async function checkHistory() {
-            // Симуляция запроса истории через Telegram WebApp
-            // Здесь можно добавить реальную логику через Telegram API
-            // Пример: получаем дату последней истории и считаем дни
-            const lastStoryDate = new Date('2025-08-10'); // Пример даты последней истории
-            const today = new Date();
-            const diffTime = Math.abs(today - lastStoryDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            daysInfo.textContent = `Последняя история была примерно ${diffDays} дней назад.`;
-        }
-
-        checkBtn.addEventListener('click', checkHistory);
-        window.addEventListener('load', checkHistory);
+        const btn = document.getElementById("postStory");
+        btn.addEventListener("click", () => {
+            if (window.Telegram?.WebApp) {
+                Telegram.WebApp.sendData('story_done'); // данные отправляются в Telebot
+                alert("✅ История засчитана! Бонус будет выдан в боте.");
+            } else {
+                alert("❌ Откройте WebApp через Telegram!");
+            }
+        });
     </script>
 </body>
 </html>
