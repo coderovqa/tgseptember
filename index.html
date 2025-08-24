@@ -3,29 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Story WebApp</title>
+    <title>Проверка истории</title>
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
-        button { font-size: 18px; padding: 15px 30px; border: none; border-radius: 10px; background: #0088cc; color: white; cursor: pointer; }
-        button:hover { background: #005f99; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        #daysInfo {
+            font-size: 20px;
+            margin: 15px 0;
+        }
+        button {
+            background-color: #0088cc;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #006699;
+        }
     </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>🎉 Добавь свою историю!</h1>
-    <p>Нажми кнопку ниже после того, как выложишь историю в Telegram</p>
-    
-    <button id="postStory">Выложить историю</button>
+    <div class="container">
+        <h2>Проверка истории</h2>
+        <p id="daysInfo">Загрузка данных...</p>
+        <button id="checkBtn">Обновить</button>
+    </div>
 
     <script>
-        const btn = document.getElementById("postStory");
-        btn.addEventListener("click", () => {
-            if (window.Telegram?.WebApp) {
-                Telegram.WebApp.sendData('story_done'); // данные отправляются в Telebot
-                alert("✅ История засчитана! Бонус будет выдан в боте.");
-            } else {
-                alert("❌ Откройте WebApp через Telegram!");
+        const daysInfo = document.getElementById('daysInfo');
+        const checkBtn = document.getElementById('checkBtn');
+
+        function showError(msg) {
+            daysInfo.textContent = msg;
+        }
+
+        function checkHistory() {
+            try {
+                const Telegram = window.Telegram.WebApp;
+                Telegram.ready();
+
+                // Получаем данные пользователя (имитация)
+                const user = Telegram.initDataUnsafe.user;
+                if(!user) {
+                    showError("Ошибка: данные пользователя не получены. Пожалуйста, откройте через Telegram.");
+                    return;
+                }
+
+                // Пример: вычисляем дни с последней истории (замени на реальную дату)
+                const lastStoryDate = new Date('2025-08-10'); // <-- сюда можно подставить реальную дату через юзербот
+                const today = new Date();
+                const diffTime = Math.abs(today - lastStoryDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                daysInfo.textContent = `Привет, ${user.first_name}! Последняя история была примерно ${diffDays} дней назад.`;
+            } catch(e) {
+                showError("Произошла ошибка при инициализации Telegram WebApp.");
+                console.error(e);
             }
-        });
+        }
+
+        checkBtn.addEventListener('click', checkHistory);
+        window.addEventListener('load', checkHistory);
     </script>
 </body>
 </html>
