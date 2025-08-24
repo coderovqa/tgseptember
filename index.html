@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Story WebApp</title>
+    <title>Добавить историю</title>
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: #f4f4f4; }
-        button { font-size: 18px; padding: 15px 30px; border: none; border-radius: 10px; background: #0088cc; color: white; cursor: pointer; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: #f4f4f4; 
+            padding: 50px;
+        }
+        img { max-width: 100%; border-radius: 10px; margin-bottom: 20px; }
+        button { 
+            font-size: 18px; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 10px; 
+            background: #0088cc; 
+            color: white; 
+            cursor: pointer; 
+        }
         button:hover { background: #005f99; }
     </style>
 </head>
 <body>
-    <h1>🎉 Добавь свою историю!</h1>
-    <p>Нажми кнопку ниже после того, как выложишь историю в Telegram</p>
-    
+    <h1>📸 Получи бонус за историю!</h1>
+    <p>Нажми кнопку после того, как выложил историю в Telegram</p>
+
+    <!-- Пример картинки из твоего первого HTML -->
+    <img src="https://i.imgur.com/9J6x0dT.jpg" alt="История">
+
     <button id="postStory">Выложить историю</button>
 
     <script>
         const btn = document.getElementById("postStory");
-
         btn.addEventListener("click", () => {
             if (window.Telegram?.WebApp) {
-                Telegram.WebApp.sendData('story_done'); // отправка данных в Telebot
-                alert("✅ История засчитана! Бонус будет выдан в боте.");
+                // отправляем событие в Telebot
+                Telegram.WebApp.sendData('story_done'); 
+                alert("✅ История засчитана! Следующий бонус через 14 дней.");
             } else {
-                alert("❌ Откройте WebApp через Telegram!");
+                alert("❌ Откройте этот WebApp через Telegram!");
             }
         });
     </script>
