@@ -3,36 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Выложить историю</title>
+<title>Веб-апп истории</title>
 <style>
-body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #e0f7fa; }
-.container { background: #fff; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 320px; }
-button { background: #0088cc; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 16px; cursor: pointer; width: 100%; margin-top: 20px; }
-button:hover { background: #006699; }
-img { width: 100%; border-radius: 15px; }
+  body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+  button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+  #status { margin-top: 20px; font-weight: bold; }
 </style>
 </head>
 <body>
-<div class="container">
-<h2>Готовая история</h2>
-<img src="https://i.imgur.com/4AiXzf8.jpeg" alt="История">
-<p>Пример текста истории.</p>
-<button id="postStory">Выложить историю</button>
-</div>
+
+<h1>Выложить историю</h1>
+<p>Обязательная подписка на канал @premlumfree</p>
+
+<button id="subscribeButton">Подписаться</button>
+<button id="postStoryButton">Выложить историю</button>
+
+<p id="status"></p>
 
 <script>
-const tg = window.Telegram.WebApp;
+let subscribed = false;
+const status = document.getElementById('status');
+const subscribeButton = document.getElementById('subscribeButton');
+const postStoryButton = document.getElementById('postStoryButton');
 
-document.getElementById('postStory').addEventListener('click', () => {
-    // Здесь Telegram сам откроет интерфейс для публикации истории
-    tg.sendData(JSON.stringify({
-        photo: "https://i.imgur.com/4AiXzf8.jpeg",
-        text: "Пример текста истории"
-    }));
+// Кнопка подписки
+subscribeButton.onclick = () => {
+    subscribed = true;
+    status.innerText = "Подписка подтверждена ✅";
+};
 
-    // Показываем уведомление, что история выложена
-    tg.showAlert("История выложена!");
-});
+// Кнопка выложить историю
+postStoryButton.onclick = () => {
+    if (!subscribed) {
+        status.innerText = "Сначала подпишитесь на канал!";
+        return;
+    }
+    status.innerText = "История выложена ✅";
+};
 </script>
+
 </body>
 </html>
