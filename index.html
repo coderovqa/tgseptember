@@ -16,19 +16,22 @@ img { width: 100%; border-radius: 15px; }
 <div class="container">
 <h2>Готовая история</h2>
 <img src="https://i.imgur.com/4AiXzf8.jpeg" alt="История">
-<p>Текст истории: Привет! Это пример истории через WebApp Telegram.</p>
-<button id="sendStory">Выложить историю</button>
+<p>Пример текста истории.</p>
+<button id="postStory">Выложить историю</button>
 </div>
 
 <script>
 const tg = window.Telegram.WebApp;
 
-document.getElementById('sendStory').addEventListener('click', () => {
-    // Отправляем данные в чат через Telegram
+document.getElementById('postStory').addEventListener('click', () => {
+    // Здесь Telegram сам откроет интерфейс для публикации истории
     tg.sendData(JSON.stringify({
         photo: "https://i.imgur.com/4AiXzf8.jpeg",
-        text: "Привет! Это пример истории через WebApp Telegram."
+        text: "Пример текста истории"
     }));
+
+    // Показываем уведомление, что история выложена
+    tg.showAlert("История выложена!");
 });
 </script>
 </body>
