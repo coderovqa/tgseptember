@@ -1,98 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Телеграм Истории</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .app-container {
-            background: #ffffff;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 360px;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #0088cc;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background: #0088cc;
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 15px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        button:hover {
-            background: #006699;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
-
-        .story-preview {
-            margin-top: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .story-preview img, .story-preview video {
-            width: 100%;
-            display: block;
-        }
-
-        .success-msg {
-            display: none;
-            margin-top: 15px;
-            color: #4caf50;
-            font-weight: 500;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выложить историю</title>
+<style>
+body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #e0f7fa; }
+.container { background: #fff; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 320px; }
+button { background: #0088cc; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 16px; cursor: pointer; width: 100%; margin-top: 20px; }
+button:hover { background: #006699; }
+img { width: 100%; border-radius: 15px; }
+</style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Готовая история</h1>
+<div class="container">
+<h2>Готовая история</h2>
+<img src="https://i.imgur.com/4AiXzf8.jpeg" alt="История">
+<p>Текст истории: Привет! Это пример истории через WebApp Telegram.</p>
+<button id="sendStory">Выложить историю</button>
+</div>
 
-        <div class="story-preview">
-            <!-- Здесь будет готовая история -->
-            <img src="https://i.imgur.com/4AiXzf8.jpeg" alt="История">
-            <!-- Если видео, можно заменить на тег <video controls src="..."></video> -->
-        </div>
+<script>
+const tg = window.Telegram.WebApp;
 
-        <button id="postStoryBtn">Выложить историю</button>
-        <div class="success-msg" id="successMsg">История успешно выложена!</div>
-    </div>
-
-    <script>
-        const postStoryBtn = document.getElementById('postStoryBtn');
-        const successMsg = document.getElementById('successMsg');
-
-        postStoryBtn.addEventListener('click', () => {
-            // Здесь будет логика для отправки готовой истории в Telegram через бота
-            // Пока просто показываем сообщение успеха
-            successMsg.style.display = 'block';
-        });
-    </script>
+document.getElementById('sendStory').addEventListener('click', () => {
+    // Отправляем данные в чат через Telegram
+    tg.sendData(JSON.stringify({
+        photo: "https://i.imgur.com/4AiXzf8.jpeg",
+        text: "Привет! Это пример истории через WebApp Telegram."
+    }));
+});
+</script>
 </body>
 </html>
